@@ -21,8 +21,8 @@ export function ChatMessage({
       <div
         className={`max-w-[85%] rounded-[2rem] px-5 py-4 ${
           isUser
-            ? "bg-indigo-500 text-white"
-            : "border border-slate-800 bg-slate-950/70 text-slate-100"
+            ? "bg-[linear-gradient(to_right,#c0522b,#5c2d82)] text-white"
+            : "border border-[#e5e7eb] bg-white text-[#374151]"
         }`}
       >
         <p className="whitespace-pre-wrap text-sm leading-7">{message.content}</p>
@@ -34,7 +34,7 @@ export function ChatMessage({
                 key={source.id}
                 type="button"
                 onClick={() => onSourceClick?.(source.id)}
-                className="rounded-full bg-slate-900/80 px-3 py-1 text-xs text-slate-200 hover:bg-slate-800"
+                className="rounded-full bg-[#f3f4f6] px-3 py-1 text-xs text-[#374151] hover:bg-[#e5e7eb]"
               >
                 r/{source.subreddit} / u/{source.author}
               </button>
@@ -47,7 +47,7 @@ export function ChatMessage({
             {message.suggestedQueries.map((query) => (
               <Badge
                 key={query}
-                className="cursor-pointer border-indigo-500/30 bg-indigo-500/10 text-indigo-100"
+                className="cursor-pointer border-[#f3c6b6] bg-[#fff3ef] text-[#c0522b]"
                 onClick={() => onSuggestedQueryClick?.(query)}
               >
                 {query}

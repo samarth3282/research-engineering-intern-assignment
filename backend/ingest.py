@@ -245,6 +245,7 @@ def export_datamapplot(
             marker_size_array=np.full(coords_2d.shape[0], 2.0, dtype=np.float32),
         )
         figure.save(output_path)
+        _stabilize_datamapplot_html(output_path)
     except ImportError as exc:
         if "pyarrow" in str(exc):
             raise RuntimeError(
@@ -253,6 +254,22 @@ def export_datamapplot(
             ) from exc
         raise
     logger.info("Datamapplot exported to %s", output_path)
+
+
+def _stabilize_datamapplot_html(output_path: Path) -> None:
+    """Patch generated HTML to use stable loaders.gl URLs that work in browsers."""
+    html = output_path.read_text(encoding="utf-8")
+    stabilized = html.replace(
+        "@loaders.gl/arrow@4.1.0-alpha.10/+esm",
+        "@loaders.gl/arrow@4.0.5/+esm",
+    ).replace(
+        "/npm/@loaders.gl/gis/+esm",
+        "/npm/@loaders.gl/gis@4.0.5/+esm",
+    )
+
+    if stabilized != html:
+        output_path.write_text(stabilized, encoding="utf-8")
+        logger.info("Stabilized datamapplot loaders URLs in %s", output_path)
 
 
 def _safe_partition(graph: nx.Graph) -> dict[str, int]:

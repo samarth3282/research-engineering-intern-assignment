@@ -11,19 +11,25 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0f172a",
-        foreground: "#e2e8f0",
-        accent: "#6366f1",
-        border: "#334155",
-        card: "#111c34",
-        muted: "#94a3b8",
+        background: "#ffffff",
+        foreground: "#1a1a3e",
+        accent: "#c0522b",
+        border: "#e5e7eb",
+        card: "#ffffff",
+        muted: "#6b7280",
+        brand: {
+          navy: "#1a1a3e",
+          coral: "#c0522b",
+          maroon: "#6b2d50",
+          indigo: "#3730a3",
+        },
       },
       backgroundImage: {
         "grid-fade":
-          "radial-gradient(circle at top, rgba(99,102,241,0.18), transparent 40%), linear-gradient(180deg, rgba(15,23,42,0.98), rgba(2,6,23,1))",
+          "radial-gradient(circle at 8% -8%, rgba(192,82,43,0.08), transparent 36%), radial-gradient(circle at 92% 0%, rgba(55,48,163,0.08), transparent 32%), linear-gradient(180deg, #ffffff 0%, #fafafa 100%)",
       },
       boxShadow: {
-        panel: "0 20px 50px rgba(2, 6, 23, 0.45)",
+        panel: "0 8px 24px rgba(0, 0, 0, 0.08)",
       },
     },
   },

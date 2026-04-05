@@ -60,10 +60,10 @@ export function ClusterSlider({ onChange, onError }: Props) {
   );
 
   return (
-    <div className="flex flex-col gap-2 rounded-3xl bg-slate-900/90 p-4 backdrop-blur-sm">
-      <div className="flex justify-between text-sm text-slate-300">
+    <div className="flex flex-col gap-2 rounded-3xl border border-[#e5e7eb] bg-white p-4 shadow-sm backdrop-blur-sm">
+      <div className="flex justify-between text-sm text-[#374151]">
         <span>Topics</span>
-        <span className="font-mono font-bold text-white">{value}</span>
+        <span className="font-mono font-bold text-[#1a1a3e]">{value}</span>
       </div>
       <Slider
         min={2}
@@ -74,9 +74,9 @@ export function ClusterSlider({ onChange, onError }: Props) {
         onValueCommit={handleCommit}
         className="w-full max-w-xs"
       />
-      {loading ? <p className="animate-pulse text-xs text-slate-400">Reclustering...</p> : null}
-      {warning ? <p className="text-xs text-amber-400">{warning}</p> : null}
-      {error ? <p className="text-xs text-rose-300">{error}</p> : null}
+      {loading ? <p className="animate-pulse text-xs text-[#6b7280]">Reclustering...</p> : null}
+      {warning ? <p className="text-xs text-[#6b2d50]">{warning}</p> : null}
+      {error ? <p className="text-xs text-[#6b2d50]">{error}</p> : null}
     </div>
   );
 }

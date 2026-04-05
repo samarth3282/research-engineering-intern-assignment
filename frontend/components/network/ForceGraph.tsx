@@ -78,7 +78,7 @@ export function ForceGraph({
     svg.attr("viewBox", `0 0 ${dimensions.width} ${dimensions.height}`);
 
     const root = svg.append("g");
-    const linkLayer = root.append("g").attr("stroke", "rgba(148,163,184,0.38)");
+    const linkLayer = root.append("g").attr("stroke", "rgba(156,163,175,0.4)");
     const nodeLayer = root.append("g");
 
     const simulation = d3
@@ -119,7 +119,7 @@ export function ForceGraph({
       .join("circle")
       .attr("r", (d) => radius(d))
       .attr("fill", (d) => color(d.community))
-      .attr("stroke", (d) => (d.id === selectedNodeId ? "#ffffff" : "#0f172a"))
+      .attr("stroke", (d) => (d.id === selectedNodeId ? "#c0522b" : "#ffffff"))
       .attr("stroke-width", (d) => (d.id === selectedNodeId ? 2.5 : 1.2))
       .style("cursor", "pointer")
       .on("click", (_event, datum) => onNodeClick(datum))
@@ -172,11 +172,11 @@ export function ForceGraph({
   }, [dimensions.height, dimensions.width, edges, nodes, onNodeClick, onNodeDoubleClick, selectedNodeId]);
 
   return (
-    <div ref={containerRef} className="h-full w-full rounded-[2rem] bg-slate-950/60">
+    <div ref={containerRef} className="h-full w-full rounded-[2rem] bg-[#f8f9fa]">
       {nodes.length ? (
         <svg ref={svgRef} className="h-full w-full" aria-label="Community network graph" />
       ) : (
-        <div className="flex h-full items-center justify-center text-sm text-slate-400">
+        <div className="flex h-full items-center justify-center text-sm text-[#6b7280]">
           No nodes available for the current filter.
         </div>
       )}

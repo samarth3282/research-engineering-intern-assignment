@@ -11,26 +11,26 @@ export function ClusterLegend({ topics }: Props) {
   return (
     <div className="glass-panel max-h-[34rem] space-y-4 overflow-y-auto rounded-[2rem] p-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300">Legend</h3>
-        <span className="text-xs text-slate-500">{topics.length} topics</span>
+        <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-[#6b2d50]">Legend</h3>
+        <span className="text-xs text-[#6b7280]">{topics.length} topics</span>
       </div>
 
       <div className="space-y-3">
         {topics.map((topic) => (
           <div
             key={topic.id}
-            className="rounded-2xl border border-slate-800/80 bg-slate-950/60 p-4"
+            className="rounded-2xl border border-[#e5e7eb] bg-white p-4"
           >
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-sm font-semibold text-white">{topic.name}</p>
-                <p className="mt-1 text-xs text-slate-500">{topic.post_count} posts</p>
+                <p className="text-sm font-semibold text-[#1a1a3e]">{topic.name}</p>
+                <p className="mt-1 text-xs text-[#6b7280]">{topic.post_count} posts</p>
               </div>
               <Badge>#{topic.id}</Badge>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
               {topic.keywords.map((keyword) => (
-                <Badge key={keyword} className="border-indigo-500/20 bg-indigo-500/10 text-indigo-100">
+                <Badge key={keyword} className="border-[#f3c6b6] bg-[#fff3ef] text-[#c0522b]">
                   {keyword}
                 </Badge>
               ))}

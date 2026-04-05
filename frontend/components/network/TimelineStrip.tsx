@@ -98,22 +98,22 @@ export function TimelineStrip({ query = "", subreddit }: Props) {
   }, [series]);
 
   return (
-    <div className="rounded-[1.75rem] border border-slate-800/80 bg-slate-950/60 p-4">
+    <div className="rounded-[1.75rem] border border-[#e5e7eb] bg-white p-4">
       <div className="mb-3 flex items-center justify-between">
-        <p className="text-sm font-semibold text-white">Timeline Intelligence</p>
-        <p className="text-xs text-slate-500">
+        <p className="text-sm font-semibold text-[#1a1a3e]">Timeline Intelligence</p>
+        <p className="text-xs text-[#6b7280]">
           {subreddit ? `r/${subreddit}` : "No node selected"}
           {query ? " narrative slice" : ""}
         </p>
       </div>
       {loading ? (
-        <p className="mb-2 text-xs text-slate-500">Loading timeline...</p>
+        <p className="mb-2 text-xs text-[#6b7280]">Loading timeline...</p>
       ) : null}
       <svg viewBox="0 0 320 110" className="h-28 w-full">
         <defs>
           <linearGradient id="timeline-gradient" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="rgba(99,102,241,0.65)" />
-            <stop offset="100%" stopColor="rgba(99,102,241,0.05)" />
+            <stop offset="0%" stopColor="rgba(224,92,42,0.38)" />
+            <stop offset="100%" stopColor="rgba(59,31,107,0.06)" />
           </linearGradient>
         </defs>
         {areaPath ? <path d={areaPath} fill="url(#timeline-gradient)" /> : null}
@@ -121,13 +121,13 @@ export function TimelineStrip({ query = "", subreddit }: Props) {
           <path
             d={linePath}
             fill="none"
-            stroke="#818cf8"
+            stroke="#c0522b"
             strokeWidth="2.5"
             strokeLinecap="round"
           />
         ) : null}
       </svg>
-      <p className="mt-3 text-sm leading-6 text-slate-400">{summary}</p>
+      <p className="mt-3 text-sm leading-6 text-[#6b7280]">{summary}</p>
     </div>
   );
 }

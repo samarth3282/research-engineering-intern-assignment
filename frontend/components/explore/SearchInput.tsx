@@ -53,7 +53,7 @@ export function SearchInput({
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-3 md:flex-row">
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9ca3af]" />
             <Input
               value={value}
               onChange={(event) => onChange(event.target.value)}
@@ -72,14 +72,14 @@ export function SearchInput({
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          <Badge className="gap-2 bg-indigo-500/10 text-indigo-100">
+          <Badge className="gap-2 border-[#f3c6b6] bg-[#fff3ef] text-[#c0522b]">
             <Languages className="h-3.5 w-3.5" />
             <span>{language}</span>
           </Badge>
           {validationMessage ? (
-            <p className="text-sm text-amber-300">{validationMessage}</p>
+            <p className="text-sm text-[#6b2d50]">{validationMessage}</p>
           ) : (
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-[#6b7280]">
               Semantic retrieval plus grounded answers over the dataset.
             </p>
           )}

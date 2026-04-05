@@ -56,12 +56,12 @@ export default function LandscapePage() {
             onError={(message) => setError(message)}
           />
           {error ? (
-            <div className="glass-panel rounded-[2rem] border border-rose-500/30 bg-rose-500/10 p-4 text-sm text-rose-100">
+            <div className="glass-panel rounded-[2rem] border border-[#f3c6b6] bg-[#fff3ef] p-4 text-sm text-[#6b2d50]">
               {error}
             </div>
           ) : null}
           {loading ? (
-            <div className="glass-panel rounded-[2rem] p-4 text-sm text-slate-400">
+            <div className="glass-panel rounded-[2rem] p-4 text-sm text-[#6b7280]">
               Loading topic summary...
             </div>
           ) : topics ? (

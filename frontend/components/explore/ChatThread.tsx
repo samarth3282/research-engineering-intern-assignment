@@ -40,7 +40,7 @@ export function ChatThread({
           />
         ))
       ) : (
-        <div className="flex h-full items-center justify-center text-center text-sm text-slate-400">
+        <div className="flex h-full items-center justify-center text-center text-sm text-[#6b7280]">
           Ask how a narrative spreads, which communities frame it differently, or who amplifies it.
         </div>
       )}

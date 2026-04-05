@@ -66,19 +66,19 @@ function TimelineChart({ series }: { series: TimelinePoint[] }) {
 
   if (!series.length) {
     return (
-      <div className="flex h-44 items-center justify-center rounded-[1.75rem] border border-dashed border-slate-800 text-sm text-slate-400">
+      <div className="flex h-44 items-center justify-center rounded-[1.75rem] border border-dashed border-[#d1d5db] bg-white text-sm text-[#6b7280]">
         No time-series data is available for this narrative yet.
       </div>
     );
   }
 
   return (
-    <div className="rounded-[1.75rem] border border-slate-800/80 bg-slate-950/55 p-4">
+    <div className="rounded-[1.75rem] border border-[#e5e7eb] bg-white p-4">
       <svg viewBox="0 0 720 220" className="h-56 w-full">
         <defs>
           <linearGradient id="narrative-timeline-gradient" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="rgba(56, 189, 248, 0.58)" />
-            <stop offset="100%" stopColor="rgba(56, 189, 248, 0.04)" />
+            <stop offset="0%" stopColor="rgba(224, 92, 42, 0.32)" />
+            <stop offset="100%" stopColor="rgba(59, 31, 107, 0.06)" />
           </linearGradient>
         </defs>
 
@@ -87,7 +87,7 @@ function TimelineChart({ series }: { series: TimelinePoint[] }) {
           <path
             d={linePath}
             fill="none"
-            stroke="#38bdf8"
+            stroke="#c0522b"
             strokeWidth="3"
             strokeLinecap="round"
           />
@@ -98,7 +98,7 @@ function TimelineChart({ series }: { series: TimelinePoint[] }) {
             cx={point.x}
             cy={point.y}
             r="3.5"
-            fill="#e0f2fe"
+            fill="#1a1a3e"
             opacity="0.95"
           />
         ))}
@@ -183,7 +183,7 @@ export function NarrativeTimeline({ query, onOpenNetwork }: Props) {
       <CardHeader className="gap-4">
         <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-sky-300">
+            <div className="flex items-center gap-2 text-[#6b2d50]">
               <Waves className="h-4 w-4" />
               <span className="text-xs uppercase tracking-[0.25em]">Narrative Timeline</span>
             </div>
@@ -214,7 +214,7 @@ export function NarrativeTimeline({ query, onOpenNetwork }: Props) {
 
         {trimmedQuery ? (
           <div className="flex flex-wrap gap-2">
-            <Badge className="gap-2 bg-sky-500/10 text-sky-100">
+            <Badge className="gap-2 border-[#f3c6b6] bg-[#fff3ef] text-[#c0522b]">
               <Sparkles className="h-3.5 w-3.5" />
               <span>{stats.totalPosts || "--"} matched posts</span>
             </Badge>
@@ -233,7 +233,7 @@ export function NarrativeTimeline({ query, onOpenNetwork }: Props) {
 
       <CardContent className="space-y-4">
         {!trimmedQuery ? (
-          <div className="rounded-[1.75rem] border border-dashed border-slate-800 px-6 py-10 text-sm text-slate-400">
+          <div className="rounded-[1.75rem] border border-dashed border-[#d1d5db] bg-white px-6 py-10 text-sm text-[#6b7280]">
             Search in the explorer to generate a query-driven timeline, then jump directly into a
             network map for the same narrative.
           </div>
@@ -244,28 +244,28 @@ export function NarrativeTimeline({ query, onOpenNetwork }: Props) {
             <Skeleton className="h-5 w-2/3 rounded-full" />
           </div>
         ) : error ? (
-          <div className="rounded-[1.75rem] border border-rose-500/30 bg-rose-500/10 px-5 py-4 text-sm text-rose-100">
+          <div className="rounded-[1.75rem] border border-[#f3c6b6] bg-[#fff3ef] px-5 py-4 text-sm text-[#6b2d50]">
             {error}
           </div>
         ) : (
           <>
             <TimelineChart series={data?.series ?? []} />
             {data?.topic_trends?.length ? (
-              <div className="rounded-[1.75rem] border border-slate-800/80 bg-slate-950/60 p-4">
-                <p className="mb-3 text-xs uppercase tracking-[0.2em] text-slate-400">
+              <div className="rounded-[1.75rem] border border-[#e5e7eb] bg-[#f8f9fa] p-4">
+                <p className="mb-3 text-xs uppercase tracking-[0.2em] text-[#6b7280]">
                   Topic Trends Over Time
                 </p>
                 <div className="space-y-3">
                   {data.topic_trends.map((trend) => (
                     <div
                       key={`${trend.topic_id}-${trend.topic_name}`}
-                      className="rounded-2xl border border-slate-800/70 bg-slate-900/50 p-3"
+                      className="rounded-2xl border border-[#e5e7eb] bg-white p-3"
                     >
                       <div className="flex items-center justify-between gap-3">
-                        <p className="text-sm font-medium text-slate-100">{trend.topic_name}</p>
+                        <p className="text-sm font-medium text-[#1a1a3e]">{trend.topic_name}</p>
                         <Badge>{trend.total_posts} posts</Badge>
                       </div>
-                      <p className="mt-2 text-xs text-slate-400">
+                      <p className="mt-2 text-xs text-[#6b7280]">
                         {trend.series
                           .map((point) => `${point.date}: ${point.count}`)
                           .join(" | ")}
@@ -275,8 +275,8 @@ export function NarrativeTimeline({ query, onOpenNetwork }: Props) {
                 </div>
               </div>
             ) : null}
-            <div className="rounded-[1.75rem] border border-slate-800/80 bg-slate-950/60 p-4">
-              <p className="text-sm leading-7 text-slate-300">
+            <div className="rounded-[1.75rem] border border-[#e5e7eb] bg-white p-4">
+              <p className="text-sm leading-7 text-[#374151]">
                 {data?.summary ?? "No timeline summary is available."}
               </p>
             </div>
@@ -289,7 +289,7 @@ export function NarrativeTimeline({ query, onOpenNetwork }: Props) {
                 Open Narrative Network
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-[#6b7280]">
                 The network view will preserve this same query and rebuild the author graph from the
                 matched posts.
               </p>

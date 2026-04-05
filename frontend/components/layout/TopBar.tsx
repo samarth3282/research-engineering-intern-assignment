@@ -7,6 +7,7 @@ import { Activity, AlertTriangle } from "lucide-react";
 import { api } from "@/lib/api";
 import type { HealthResponse } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 const titleMap: Record<string, string> = {
   "/explore": "Narrative Explorer",
@@ -69,28 +70,29 @@ export function TopBar() {
   const title = useMemo(() => titleMap[pathname] ?? "NarrativeScope", [pathname]);
 
   return (
-    <div className="sticky top-0 z-20 flex flex-col gap-3 border-b border-slate-800/70 bg-slate-950/50 px-4 py-4 backdrop-blur-xl lg:px-8">
+    <div className="sticky top-0 z-20 flex flex-col gap-3 border-b border-[#e5e7eb] bg-white/95 px-4 py-4 backdrop-blur-xl lg:px-12">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Research Console</p>
-          <h2 className="text-2xl font-semibold text-white">{title}</h2>
+          <p className="text-xs uppercase tracking-[0.3em] text-[#6b7280]">Research Console</p>
+          <h2 className="text-2xl font-semibold text-[#1a1a3e]">{title}</h2>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center justify-end gap-3">
+          <ThemeToggle />
           <Badge className="gap-2">
             <span>{health?.posts ?? "--"} posts</span>
-            <span className="text-slate-500">|</span>
+            <span className="text-[#9ca3af]">|</span>
             <span>{health?.subreddits ?? "--"} subreddits</span>
           </Badge>
           <Badge className="gap-2">
-            <Activity className={`h-3.5 w-3.5 ${offline ? "text-rose-400" : "text-emerald-400"}`} />
+            <Activity className={`h-3.5 w-3.5 ${offline ? "text-[#c0522b]" : "text-emerald-600"}`} />
             <span>{offline ? "API unreachable" : "API connected"}</span>
           </Badge>
         </div>
       </div>
 
       {offline ? (
-        <div className="flex items-center gap-2 rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+        <div className="flex items-center gap-2 rounded-2xl border border-[#f3c6b6] bg-[#fff3ef] px-4 py-3 text-sm text-[#6b2d50]">
           <AlertTriangle className="h-4 w-4" />
           <span>Backend unavailable. Live metrics will refresh automatically when the API recovers.</span>
         </div>

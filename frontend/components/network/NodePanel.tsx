@@ -31,7 +31,7 @@ export function NodePanel({
         <CardHeader>
           <CardTitle>Author Detail</CardTitle>
         </CardHeader>
-        <CardContent className="text-sm text-slate-400">
+        <CardContent className="text-sm text-[#6b7280]">
           Click a node to inspect its influence, community membership, and time-series context.
         </CardContent>
       </Card>
@@ -53,28 +53,28 @@ export function NodePanel({
           <Link
             href={`https://www.reddit.com/user/${node.id}`}
             target="_blank"
-            className="text-sm text-indigo-300 hover:text-indigo-200"
+            className="text-sm text-[#c0522b] hover:text-[#9f4322]"
           >
             Open Reddit profile
           </Link>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-3 text-sm">
-            <div className="rounded-2xl bg-slate-900/80 p-3">
-              <p className="text-slate-500">Influence</p>
-              <p className="mt-1 font-semibold text-white">Top {percentile}%</p>
+            <div className="rounded-2xl bg-[#f8f9fa] p-3">
+              <p className="text-[#6b7280]">Influence</p>
+              <p className="mt-1 font-semibold text-[#1a1a3e]">Top {percentile}%</p>
             </div>
-            <div className="rounded-2xl bg-slate-900/80 p-3">
-              <p className="text-slate-500">Degree</p>
-              <p className="mt-1 font-semibold text-white">{node.degree}</p>
+            <div className="rounded-2xl bg-[#f8f9fa] p-3">
+              <p className="text-[#6b7280]">Degree</p>
+              <p className="mt-1 font-semibold text-[#1a1a3e]">{node.degree}</p>
             </div>
-            <div className="rounded-2xl bg-slate-900/80 p-3">
-              <p className="text-slate-500">PageRank</p>
-              <p className="mt-1 font-semibold text-white">{node.pagerank.toFixed(4)}</p>
+            <div className="rounded-2xl bg-[#f8f9fa] p-3">
+              <p className="text-[#6b7280]">PageRank</p>
+              <p className="mt-1 font-semibold text-[#1a1a3e]">{node.pagerank.toFixed(4)}</p>
             </div>
-            <div className="rounded-2xl bg-slate-900/80 p-3">
-              <p className="text-slate-500">Posts</p>
-              <p className="mt-1 font-semibold text-white">{node.post_count}</p>
+            <div className="rounded-2xl bg-[#f8f9fa] p-3">
+              <p className="text-[#6b7280]">Posts</p>
+              <p className="mt-1 font-semibold text-[#1a1a3e]">{node.post_count}</p>
             </div>
           </div>
 
@@ -93,7 +93,7 @@ export function NodePanel({
                 Remove from graph
               </Button>
             ) : (
-              <p className="text-xs text-amber-300">
+              <p className="text-xs text-[#6b2d50]">
                 Double-click the node in the graph to arm removal.
               </p>
             )}

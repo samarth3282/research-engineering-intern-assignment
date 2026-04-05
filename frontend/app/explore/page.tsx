@@ -237,7 +237,7 @@ function ExplorePageContent() {
                 />
               ))
             ) : (
-              <div className="rounded-[2rem] border border-dashed border-slate-700 px-6 py-12 text-center text-sm text-slate-400">
+              <div className="rounded-[2rem] border border-dashed border-[#d1d5db] bg-white px-6 py-12 text-center text-sm text-[#6b7280]">
                 Search results will appear here alongside the chat analysis.
               </div>
             )}

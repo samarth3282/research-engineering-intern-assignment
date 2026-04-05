@@ -237,7 +237,7 @@ function NetworkPageContent() {
           <CardHeader className="gap-3">
             <div className="flex flex-col gap-2 xl:flex-row xl:items-start xl:justify-between">
               <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sky-300">
+                <div className="flex items-center gap-2 text-[#6b2d50]">
                   <Share2 className="h-4 w-4" />
                   <span className="text-xs uppercase tracking-[0.25em]">Narrative Graph</span>
                 </div>
@@ -264,7 +264,7 @@ function NetworkPageContent() {
           <CardContent className="space-y-4">
             <div className="flex flex-col gap-3 md:flex-row">
               <div className="relative flex-1">
-                <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+                <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9ca3af]" />
                 <Input
                   value={draftQuery}
                   onChange={(event) => setDraftQuery(event.target.value)}
@@ -319,9 +319,9 @@ function NetworkPageContent() {
             </div>
 
             {validationMessage ? (
-              <p className="text-sm text-amber-300">{validationMessage}</p>
+              <p className="text-sm text-[#6b2d50]">{validationMessage}</p>
             ) : (
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-[#6b7280]">
                 {graph?.summary ??
                   "Start from a narrative query to generate the author graph and avoid rendering a heavy global map."}
               </p>
@@ -338,12 +338,12 @@ function NetworkPageContent() {
           <div className="flex items-center gap-2">
             <Badge>{filteredGraph?.nodes.length ?? 0} nodes</Badge>
             <Badge>{filteredGraph?.edges.length ?? 0} edges</Badge>
-            {loading ? <Badge className="bg-sky-500/10 text-sky-100">Refreshing</Badge> : null}
+            {loading ? <Badge className="border-[#f3c6b6] bg-[#fff3ef] text-[#c0522b]">Refreshing</Badge> : null}
           </div>
         </div>
 
         {error ? (
-          <div className="rounded-[1.75rem] border border-rose-500/30 bg-rose-500/10 px-5 py-4 text-sm text-rose-100">
+          <div className="rounded-[1.75rem] border border-[#f3c6b6] bg-[#fff3ef] px-5 py-4 text-sm text-[#6b2d50]">
             {error}
           </div>
         ) : null}
