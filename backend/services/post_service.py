@@ -147,7 +147,7 @@ def resolve_post_ids_for_query(query: str, k: int = 200) -> tuple[list[str], str
 
     from services.embedding_service import EmbeddingService
 
-    semantic_ids, _is_semantic = EmbeddingService.get_instance().search(
+    semantic_ids, _is_semantic, _retrieval_mode = EmbeddingService.get_instance().search(
         trimmed,
         k=k,
         fallback_to_top_posts=False,

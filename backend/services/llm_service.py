@@ -43,6 +43,18 @@ def _active_provider() -> str | None:
     return None
 
 
+def has_active_provider() -> bool:
+    return _active_provider() is not None
+
+
+def ensure_timeline_llm_ready() -> None:
+    if not has_active_provider():
+        raise RuntimeError(
+            "Timeline summaries require an active LLM provider. "
+            "Set LLM_PROVIDER and API credentials for Gemini or Anthropic."
+        )
+
+
 def _gemini_client():
     settings = get_settings()
     if not settings.gemini_api_key or genai is None:
@@ -105,16 +117,22 @@ def _fallback_timeline_summary(series_description: str) -> str:
     )
 
 
-def generate_timeline_summary(series_description: str) -> str:
+def generate_timeline_summary(series_description: str, require_genai: bool = False) -> str:
     system = (
         "You are a data journalist writing brief, clear trend summaries for a general audience. "
         "Write 2-3 sentences maximum. Be specific about dates and numbers. "
         "Do not speculate beyond the data."
     )
     user = f"Summarize this trend for a non-technical reader:\n\n{series_description}"
-    provider = _active_provider() or "none"
-    key = hashlib.md5((provider + system + user).encode("utf-8")).hexdigest()
-    response = _cached_complete(key, provider, system, user)
+    provider = _active_provider()
+    if require_genai and provider is None:
+        raise RuntimeError(
+            "GenAI timeline summary is required but no active LLM provider is configured."
+        )
+
+    provider_name = provider or "none"
+    key = hashlib.md5((provider_name + system + user).encode("utf-8")).hexdigest()
+    response = _cached_complete(key, provider_name, system, user)
     return response or _fallback_timeline_summary(series_description)
 
 

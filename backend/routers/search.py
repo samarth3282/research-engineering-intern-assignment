@@ -17,6 +17,7 @@ async def search(
     k: int = Query(default=10, ge=1, le=50),
     subreddit: str = Query(default=""),
 ):
+    settings = get_settings()
     trimmed = q.strip()
     if trimmed and not trimmed.lower().startswith("author:") and len(trimmed) < 3:
         raise HTTPException(status_code=422, detail="Query must contain at least 3 characters.")
@@ -30,16 +31,32 @@ async def search(
         posts = fetch_posts_by_author(author, k)
         if subreddit:
             posts = [post for post in posts if post["subreddit"].lower() == subreddit.lower()]
-        return SearchResponse(posts=posts[:k], total=len(posts[:k]), query=q, is_semantic=False)
+        return SearchResponse(
+            posts=posts[:k],
+            total=len(posts[:k]),
+            query=q,
+            is_semantic=False,
+            retrieval_mode="author",
+        )
 
-    post_ids, is_semantic = svc.search(q, k=k * 3 if subreddit else k)
+    post_ids, is_semantic, retrieval_mode = svc.search(
+        q,
+        k=k * 3 if subreddit else k,
+        fallback_to_top_posts=not settings.strict_semantic_search,
+    )
     posts = fetch_posts_by_ids(post_ids)
 
     if subreddit:
         posts = [post for post in posts if post["subreddit"].lower() == subreddit.lower()]
 
     posts = posts[:k]
-    return SearchResponse(posts=posts, total=len(posts), query=q, is_semantic=is_semantic)
+    return SearchResponse(
+        posts=posts,
+        total=len(posts),
+        query=q,
+        is_semantic=is_semantic,
+        retrieval_mode=retrieval_mode,
+    )
 
 
 @router.post("/chat", response_model=ChatResponse)
@@ -63,7 +80,11 @@ async def chat(req: ChatRequest, request: Request):
         return ChatResponse(answer=answer, sources=[], suggested_queries=suggested)
 
     svc = EmbeddingService.get_instance()
-    post_ids, _is_semantic = svc.search(req.question, k=8)
+    post_ids, _is_semantic, _retrieval_mode = svc.search(
+        req.question,
+        k=8,
+        fallback_to_top_posts=False,
+    )
     posts = fetch_posts_by_ids(post_ids)
     answer, suggested = rag_chat(req.question, posts, history_payload)
     return ChatResponse(answer=answer, sources=posts[:5], suggested_queries=suggested)

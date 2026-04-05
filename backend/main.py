@@ -74,6 +74,11 @@ def _load_health_stats() -> dict[str, int | None | str]:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     settings = get_settings()
+    if settings.require_genai_timeline_summary:
+        from services.llm_service import ensure_timeline_llm_ready
+
+        ensure_timeline_llm_ready()
+
     missing = _missing_artifacts()
     if missing:
         if not settings.auto_ingest_on_startup:

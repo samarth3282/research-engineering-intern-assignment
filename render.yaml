@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: narrativescope-backend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - backend/**
+        - render.yaml
+        - .dockerignore
+    envVars:
+      - key: AUTO_INGEST_ON_STARTUP
+        value: "false"
+      - key: PRELOAD_SERVICES_ON_STARTUP
+        value: "false"
+      - key: LLM_PROVIDER
+        value: gemini
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: REQUIRE_GENAI_TIMELINE_SUMMARY
+        value: "true"
+      - key: STRICT_SEMANTIC_SEARCH
+        value: "true"

@@ -68,11 +68,13 @@ class EmbeddingService:
         query: str,
         k: int = 10,
         fallback_to_top_posts: bool = True,
-    ) -> tuple[list[str], bool]:
+    ) -> tuple[list[str], bool, str]:
         query_vector = self.embed_query(query)
         k_safe = min(max(k, 1), int(self.index.ntotal))
         if query_vector is None:
-            return (self._top_posts_by_score(k_safe), False) if fallback_to_top_posts else ([], False)
+            if fallback_to_top_posts:
+                return self._top_posts_by_score(k_safe), False, "fallback_top_posts_short_query"
+            return [], False, "query_too_short"
 
         scores, indices = self.index.search(query_vector, k_safe)
         pairs = [
@@ -81,12 +83,16 @@ class EmbeddingService:
             if index >= 0
         ]
         if not pairs:
-            return (self._top_posts_by_score(k_safe), False) if fallback_to_top_posts else ([], False)
+            if fallback_to_top_posts:
+                return self._top_posts_by_score(k_safe), False, "fallback_top_posts_empty_neighbors"
+            return [], False, "no_neighbors"
 
         if pairs[0][0] < self.settings.semantic_min_score:
-            return (self._top_posts_by_score(k_safe), False) if fallback_to_top_posts else ([], False)
+            if fallback_to_top_posts:
+                return self._top_posts_by_score(k_safe), False, "fallback_top_posts_low_confidence"
+            return [], False, "semantic_low_confidence"
 
-        return [self.post_ids[index] for _score, index in pairs], True
+        return [self.post_ids[index] for _score, index in pairs], True, "semantic"
 
     @classmethod
     def get_instance(cls) -> "EmbeddingService":

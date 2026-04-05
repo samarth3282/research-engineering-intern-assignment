@@ -21,8 +21,10 @@ class Settings(BaseSettings):
     gemini_model: str = "gemini-2.5-flash"
     anthropic_api_key: str | None = None
     anthropic_model: str = "claude-sonnet-4-20250514"
+    require_genai_timeline_summary: bool = False
     embedding_model_name: str = "paraphrase-multilingual-MiniLM-L12-v2"
     semantic_min_score: float = 0.12
+    strict_semantic_search: bool = True
     default_search_k: int = 10
     max_network_nodes: int = 500
     network_context_author_cap: int = 120

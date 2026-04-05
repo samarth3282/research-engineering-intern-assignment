@@ -1,0 +1,33 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      AUTO_INGEST_ON_STARTUP: ${AUTO_INGEST_ON_STARTUP:-true}
+      PRELOAD_SERVICES_ON_STARTUP: ${PRELOAD_SERVICES_ON_STARTUP:-false}
+      LLM_PROVIDER: ${LLM_PROVIDER:-gemini}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      REQUIRE_GENAI_TIMELINE_SUMMARY: ${REQUIRE_GENAI_TIMELINE_SUMMARY:-false}
+      STRICT_SEMANTIC_SEARCH: ${STRICT_SEMANTIC_SEARCH:-true}
+      FRONTEND_URL: http://localhost:3000
+    volumes:
+      - ./backend:/app/backend
+    working_dir: /app/backend
+    command: sh -c "python ingest.py && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    command: sh -c "npm install && npm run dev"

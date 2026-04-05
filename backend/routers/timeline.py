@@ -23,5 +23,8 @@ async def timeline(req: TimelineRequest, request: Request):
     ):
         raise HTTPException(status_code=429, detail="Rate limit exceeded for timeline requests.")
 
-    data = TimelineService.get_instance().get_series(req)
+    try:
+        data = TimelineService.get_instance().get_series(req)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
     return TimelineResponse(**data)

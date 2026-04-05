@@ -1,0 +1,116 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import * as Tooltip from "@radix-ui/react-tooltip";
+import { Compass, GitBranch, Info, Map, Network } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
+
+const navItems = [
+  { href: "/explore", label: "Narrative Explorer", icon: Compass },
+  { href: "/landscape", label: "Topic Landscape", icon: Map },
+  { href: "/network", label: "Community Network", icon: Network },
+];
+
+const repoUrl = process.env.NEXT_PUBLIC_REPO_URL?.trim();
+
+export function Sidebar() {
+  const pathname = usePathname();
+
+  return (
+    <>
+      <aside className="glass-panel hidden h-screen w-72 shrink-0 flex-col border-r border-slate-800/80 lg:flex">
+        <div className="p-6">
+          <div className="rounded-3xl border border-indigo-500/30 bg-indigo-500/10 p-4">
+            <p className="text-xs uppercase tracking-[0.3em] text-indigo-300">SimPPL</p>
+            <h1 className="mt-2 text-2xl font-semibold text-white">NarrativeScope</h1>
+            <p className="mt-2 text-sm text-slate-400">
+              Investigative intelligence for Reddit political discourse.
+            </p>
+          </div>
+        </div>
+ 
+        <nav className="flex flex-1 flex-col gap-2 px-4">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const active = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition-colors",
+                  active
+                    ? "bg-indigo-500/15 text-white"
+                    : "text-slate-400 hover:bg-slate-900/80 hover:text-slate-100",
+                )}
+              >
+                <Icon className="h-4 w-4" />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+
+          <Separator className="my-4" />
+
+          {repoUrl ? (
+            <Link
+              href={repoUrl}
+              target="_blank"
+              className="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-400 transition-colors hover:bg-slate-900/80 hover:text-slate-100"
+            >
+              <GitBranch className="h-4 w-4" />
+              <span>GitHub</span>
+            </Link>
+          ) : null}
+
+          <Tooltip.Provider>
+            <Tooltip.Root>
+              <Tooltip.Trigger asChild>
+                <button className="mt-auto mb-4 flex items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm text-slate-400 transition-colors hover:bg-slate-900/80 hover:text-slate-100">
+                  <Info className="h-4 w-4" />
+                  <span>Dataset Context</span>
+                </button>
+              </Tooltip.Trigger>
+              <Tooltip.Portal>
+                <Tooltip.Content
+                  side="right"
+                  className="max-w-xs rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-xs text-slate-200 shadow-2xl"
+                >
+                  Reddit political discourse from the SimPPL assignment dataset, validated locally and
+                  ready for hosted analysis.
+                </Tooltip.Content>
+              </Tooltip.Portal>
+            </Tooltip.Root>
+          </Tooltip.Provider>
+        </nav>
+      </aside>
+
+      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-800/80 bg-slate-950/95 px-2 py-2 backdrop-blur-xl lg:hidden">
+        <div className="grid grid-cols-3 gap-2">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const active = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "flex flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-[11px] transition-colors",
+                  active
+                    ? "bg-indigo-500/20 text-white"
+                    : "text-slate-400 hover:bg-slate-900/80 hover:text-slate-100",
+                )}
+              >
+                <Icon className="h-4 w-4" />
+                <span>{item.label.split(" ")[0]}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
+    </>
+  );
+}
