@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import { CinematicLanding } from "@/components/landing/CinematicLanding";
 
 export default function HomePage() {
-  redirect("/explore");
+  return <CinematicLanding />;
 }
