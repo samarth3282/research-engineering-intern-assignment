@@ -67,7 +67,7 @@ export default function LandscapePage() {
           ) : topics ? (
             <ClusterLegend topics={topics.topics} />
           ) : null}
-        </div>
+        </div>  
       </div>
     </div>
   );

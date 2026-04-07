@@ -164,6 +164,11 @@ async def health():
     }
 
 
+@app.get("/healthz")
+async def healthz():
+    return {"status": "ok"}
+
+
 if __name__ == "__main__":
     import uvicorn
     import os
