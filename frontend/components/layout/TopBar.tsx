@@ -42,9 +42,10 @@ export function TopBar() {
         if (cancelled) {
           return;
         }
+        const healthy = data.status === "ok";
         setHealth(data);
-        setOffline(false);
-        retryDelayRef.current = 10000;
+        setOffline(!healthy);
+        retryDelayRef.current = healthy ? 10000 : Math.min(retryDelayRef.current * 2, 60000);
       } catch {
         if (cancelled) {
           return;

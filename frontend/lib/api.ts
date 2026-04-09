@@ -102,11 +102,16 @@ export const api = {
   getLandscapeUrl: (): string => `${BASE_URL}/static/landscape.html`,
 
   health: async (signal?: AbortSignal): Promise<HealthResponse> => {
-    const liveness = await apiFetch<{ status: string }>("/healthz", { signal });
-    return {
-      status: liveness.status,
-      posts: null,
-      subreddits: null,
-    };
+    const res = await fetch("/api/health", {
+      method: "GET",
+      signal,
+      cache: "no-store",
+    });
+
+    const payload = await res.json().catch(() => null) as HealthResponse | null;
+    if (!payload) {
+      throw new Error(`Health request failed with status ${res.status}`);
+    }
+    return payload;
   },
 };
