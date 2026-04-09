@@ -101,6 +101,12 @@ export const api = {
 
   getLandscapeUrl: (): string => `${BASE_URL}/static/landscape.html`,
 
-  health: (signal?: AbortSignal): Promise<HealthResponse> =>
-    apiFetch("/health", { signal }),
+  health: async (signal?: AbortSignal): Promise<HealthResponse> => {
+    const liveness = await apiFetch<{ status: string }>("/healthz", { signal });
+    return {
+      status: liveness.status,
+      posts: null,
+      subreddits: null,
+    };
+  },
 };
